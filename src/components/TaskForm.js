@@ -3,7 +3,6 @@ import axios from "axios";
 import { FaPlus, FaEdit, FaSave } from "react-icons/fa";
 import "./TaskForm.css";
 
-
 const TaskForm = ({ onTaskAdded, editingTask }) => {
   const [formData, setFormData] = useState({
     title: "",
@@ -42,33 +41,43 @@ const TaskForm = ({ onTaskAdded, editingTask }) => {
         description: formData.description,
         status: formData.status,
         priority: formData.priority,
-        dueDate: formData.dueDate
+        due_date: formData.dueDate, // ✅ changed from dueDate to due_date
       };
 
+      console.log("Sending Task:", taskData); // for debug
+
       if (editingTask) {
-        await axios.put(`https://task-manager-app-r5xw.onrender.com/api/tasks/${editingTask.id}`, taskData, {
-          headers: getAuthHeaders()
-        });
+        await axios.put(
+          `/api/tasks/${editingTask.id}`,
+          taskData,
+          { headers: getAuthHeaders() }
+        );
       } else {
-        await axios.post("https://task-manager-app-r5xw.onrender.com/api/tasks", taskData, {
-          headers: getAuthHeaders()
-        });
+        await axios.post(
+          "/api/tasks",
+          taskData,
+          { headers: getAuthHeaders() }
+        );
       }
 
-      onTaskAdded();
+      onTaskAdded(); // Close form/modal
     } catch (error) {
       console.error("Error saving task:", error);
+
+      // Handle 401 - Unauthorized
       if (error.response?.status === 401) {
         localStorage.removeItem("token");
         localStorage.removeItem("user");
         window.location.href = "/login";
+      } else {
+        alert("Something went wrong while saving the task.");
       }
     }
   };
 
   const handleChange = (e) => {
     const { name, value } = e.target;
-    setFormData(prev => ({
+    setFormData((prev) => ({
       ...prev,
       [name]: value
     }));

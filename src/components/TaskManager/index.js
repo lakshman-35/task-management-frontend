@@ -13,7 +13,7 @@ const TaskManager = () => {
   const [editTask, setEditTask] = useState(null); 
   const [user, setUser] = useState(null);
 
-  // Get user info from localStorage
+  
   const getUserInfo = () => {
     const userStr = localStorage.getItem("user");
     if (userStr) {
@@ -26,7 +26,7 @@ const TaskManager = () => {
     return null;
   };
 
-  // Get token from localStorage
+
   const getAuthHeaders = () => {
     const token = localStorage.getItem("token");
     return {
@@ -37,7 +37,7 @@ const TaskManager = () => {
 
   const fetchTasks = useCallback(async () => {
     try {
-      const response = await axios.get("https://task-manager-app-r5xw.onrender.com/api/tasks", {
+      const response = await axios.get("/api/tasks", {
         headers: getAuthHeaders()
       });
       setTasks(response.data);
@@ -52,11 +52,11 @@ const TaskManager = () => {
   }, []);
 
   useEffect(() => {
-    // Get user info on component mount
+    
     const userInfo = getUserInfo();
     setUser(userInfo);
     
-    // Fetch user's tasks
+    
     fetchTasks();
   }, [fetchTasks]);
 
@@ -68,7 +68,7 @@ const TaskManager = () => {
 
   const handleTaskDeleted = async (id) => {
     try {
-      await axios.delete(`https://task-manager-app-r5xw.onrender.com/api/tasks/${id}`, {
+      await axios.delete(`/api/tasks/${id}`, {
         headers: getAuthHeaders()
       });
       fetchTasks();
@@ -112,7 +112,7 @@ const TaskManager = () => {
 
       <div className="task-manager">
         <div className="dashboard-container">
-          {/* Header Section */}
+         
           <div className="dashboard-header">
             <div className="header-content">
               <div className="header-text">
@@ -134,7 +134,7 @@ const TaskManager = () => {
             </div>
           </div>
 
-          {/* Statistics Cards */}
+          
           <div className="stats-grid">
             <div className="stat-card total">
               <div className="stat-icon">
@@ -214,7 +214,7 @@ const TaskManager = () => {
             </div>
           </div>
 
-          {/* Tasks Section */}
+         
           <div className="tasks-section">
             <div className="tasks-header">
               <h2 className="tasks-title">
