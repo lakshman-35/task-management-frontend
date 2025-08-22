@@ -11,7 +11,7 @@ const Navbar = () => {
     try {
       const token = localStorage.getItem("token");
       if (token) {
-        await axios.post("/api/logout", {}, {
+        await axios.post("https://task-manager-backend-1-7yxi.onrender.com/api/logout", {}, {
           headers: {
             Authorization: `Bearer ${token}`,
             "Content-Type": "application/json"

@@ -48,13 +48,13 @@ const TaskForm = ({ onTaskAdded, editingTask }) => {
 
       if (editingTask) {
         await axios.put(
-          `/api/tasks/${editingTask.id}`,
+          `https://task-manager-backend-1-7yxi.onrender.com/api/tasks/${editingTask.id}`,
           taskData,
           { headers: getAuthHeaders() }
         );
       } else {
         await axios.post(
-          "/api/tasks",
+          "https://task-manager-backend-1-7yxi.onrender.com/api/tasks",
           taskData,
           { headers: getAuthHeaders() }
         );

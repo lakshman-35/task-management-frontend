@@ -37,7 +37,7 @@ const TaskManager = () => {
 
   const fetchTasks = useCallback(async () => {
     try {
-      const response = await axios.get("/api/tasks", {
+      const response = await axios.get("https://task-manager-backend-1-7yxi.onrender.com/api/tasks", {
         headers: getAuthHeaders()
       });
       setTasks(response.data);
@@ -68,7 +68,7 @@ const TaskManager = () => {
 
   const handleTaskDeleted = async (id) => {
     try {
-      await axios.delete(`/api/tasks/${id}`, {
+      await axios.delete(`https://task-manager-backend-1-7yxi.onrender.com/api/tasks/${id}`, {
         headers: getAuthHeaders()
       });
       fetchTasks();
